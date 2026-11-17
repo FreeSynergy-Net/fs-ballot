@@ -1,0 +1,21 @@
+[package]
+name = "fs-ballot"
+description = "Anonymous ballot box without a log: one-time tokens (only their hashes are kept), random order, release in batches of a minimum group size; the trait Urn and the pure lane logic"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+keywords = ["voting", "ballot", "anonymous", "token"]
+categories = ["algorithms"]
+
+[features]
+# Derive Serialize/Deserialize for `Lane` and `Batch` (for a caller that keeps a lane in a document store).
+serde = ["dep:serde"]
+
+[dependencies]
+thiserror = "2"
+sha2 = "0.10"
+getrandom = "0.3"
+serde = { version = "1", features = ["derive"], optional = true }

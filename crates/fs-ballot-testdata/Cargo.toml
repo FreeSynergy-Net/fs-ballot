@@ -1,0 +1,13 @@
+[package]
+name = "fs-ballot-testdata"
+description = "Test double for fs-ballot: an in-memory urn (MemoryUrn) and the conformance checks every Urn implementation must pass"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+fs-ballot = { path = "../fs-ballot" }
