@@ -4,6 +4,8 @@
 //! Anonymity is checked as far as the trait shows it: a spent token leaves no trace in [`Urn::rows`], the
 //! token hashes are sorted, `cast` returns nothing, and the order of ballots does not follow the order
 //! of arrival (30 trials of 8 ballots: all 30 equal to the arrival order has a chance of (1/8!)^30).
+//!
+//! Pattern: Template (one list of checks, run against any implementation of the trait).
 
 use fs_ballot::{Error, Urn, hash_token};
 
