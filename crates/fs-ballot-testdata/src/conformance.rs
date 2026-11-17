@@ -10,6 +10,12 @@ use fs_ballot::{Error, Urn, hash_token};
 /// A failed promise, in words.
 pub type Check = Result<(), String>;
 
+/// A check on a urn made by the given maker.
+type Maker<'a, U> = &'a dyn Fn(u16) -> U;
+
+/// A named check.
+type Named<'a, U> = (&'a str, fn(Maker<'_, U>) -> Check);
+
 fn ensure(ok: bool, what: &str) -> Check {
     if ok { Ok(()) } else { Err(what.to_owned()) }
 }
@@ -19,7 +25,7 @@ fn ensure(ok: bool, what: &str) -> Check {
 /// # Errors
 /// The failures, one line each.
 pub fn all<U: Urn<String>>(make: impl Fn(u16) -> U) -> Result<(), Vec<String>> {
-    let checks: [(&str, fn(&dyn Fn(u16) -> U) -> Check); 7] = [
+    let checks: [Named<'_, U>; 7] = [
         ("once", once),
         ("unknown token", unknown_token),
         ("no link", no_link),
