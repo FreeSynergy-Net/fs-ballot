@@ -12,11 +12,12 @@ pub fn fill(buf: &mut [u8]) -> Result<()> {
     getrandom::fill(buf).map_err(|e| Error::Random(e.to_string()))
 }
 
-/// A uniform number in `0..n` (`n > 0`), by rejection so there is no bias.
+/// A uniform number in `0..n` (`n > 0`), by rejection so there is no bias. Crate-internal: the callers
+/// (`shuffle`, `insert_random`) always pass at least 1; `n = 0` would divide by zero.
 ///
 /// # Errors
 /// See [`fill`].
-pub fn below(n: usize) -> Result<usize> {
+pub(crate) fn below(n: usize) -> Result<usize> {
     debug_assert!(n > 0);
     let n = n as u64;
     let zone = u64::MAX - (u64::MAX % n);
@@ -69,4 +70,27 @@ pub fn token() -> Result<String> {
     let mut b = [0u8; 32];
     fill(&mut b)?;
     Ok(hex(&b))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_callers_never_ask_below_for_zero() {
+        // The smallest inputs of the two callers: `below(1)` and `below(2)`, never `below(0)`.
+        let mut none: Vec<u8> = vec![];
+        insert_random(&mut none, 7).unwrap();
+        assert_eq!(none, [7]);
+        shuffle(&mut Vec::<u8>::new()).unwrap();
+        shuffle(&mut [1u8]).unwrap();
+        assert_eq!(below(1).unwrap(), 0);
+    }
+
+    #[test]
+    fn below_stays_in_range() {
+        for n in 1..40 {
+            assert!(below(n).unwrap() < n);
+        }
+    }
 }

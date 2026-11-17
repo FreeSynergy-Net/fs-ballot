@@ -19,7 +19,7 @@ Latest tag: none yet. The version in this tree is `0.0.1`.
 - It is only the box. It does not know who is invited, who may vote, or what a ballot contains; the program decides the electorate, the method and the minimum group before the vote.
 - Counting is `fs-tally`.
 - A storage backend with typed columns is not here yet (planned as its own step). Today the caller keeps the `Lane` in memory or in its own store.
-- Stated limits: whoever runs the machine can read memory while a ballot passes and sees the token when it is issued; the network address and the time a request arrives are the caller's to protect; a small group shows its members' choices (so choose the minimum group with care, at least 3).
+- Stated limits: whoever runs the machine can read memory while a ballot passes and sees the token when it is issued; the network address and the time a request arrives are the caller's to protect; a small group shows its members' choices (so choose the minimum group with care, at least 3). Two copies of the stored state taken around one vote (a backup, a snapshot) show which token hash went and which ballot came; keep such copies away from the issuer of the tokens.
 
 ## Part of FreeSynergy
 
@@ -55,7 +55,7 @@ Letzter Tag: noch keiner. Die Version in diesem Baum ist `0.0.1`.
 - Es ist nur die Urne. Wer eingeladen ist, wer abstimmen darf und was ein Stimmzettel enthält, weiß es nicht; das Programm legt Wahlvolk, Verfahren und Mindestgruppe vor der Abstimmung fest.
 - Zählen macht `fs-tally`.
 - Ein Speicher mit typisierten Spalten gibt es hier noch nicht (eigener Schritt geplant). Heute hält der Aufrufer die `Lane` im Speicher oder in seinem eigenen Speicher.
-- Benannte Grenzen: wer die Maschine betreibt, kann den Speicher lesen, während ein Stimmzettel vorbeikommt, und sieht das Token bei der Ausgabe; Netzadresse und Ankunftszeit einer Anfrage zu schützen ist Sache des Aufrufers; eine kleine Gruppe zeigt die Wahl ihrer Mitglieder (Mindestgruppe mit Bedacht wählen, mindestens 3).
+- Benannte Grenzen: wer die Maschine betreibt, kann den Speicher lesen, während ein Stimmzettel vorbeikommt, und sieht das Token bei der Ausgabe; Netzadresse und Ankunftszeit einer Anfrage zu schützen ist Sache des Aufrufers; eine kleine Gruppe zeigt die Wahl ihrer Mitglieder (Mindestgruppe mit Bedacht wählen, mindestens 3). Zwei Kopien des gespeicherten Zustands rund um eine Stimme (Sicherung, Snapshot) zeigen, welcher Token-Hash ging und welcher Stimmzettel kam; solche Kopien gehören nicht zu dem, der die Tokens ausgibt.
 
 ## Teil von FreeSynergy
 

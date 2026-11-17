@@ -10,6 +10,7 @@
 //! arrival at the caller are the caller's to protect.
 
 #![deny(missing_docs)]
+#![forbid(unsafe_code)]
 #![warn(clippy::pedantic)]
 
 mod error;

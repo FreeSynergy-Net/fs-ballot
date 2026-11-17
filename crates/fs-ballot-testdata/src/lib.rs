@@ -4,6 +4,7 @@
 //! against ANY implementation; a backend runs [`conformance::all`] in its own tests.
 
 #![deny(missing_docs)]
+#![forbid(unsafe_code)]
 #![warn(clippy::pedantic)]
 
 pub mod conformance;
